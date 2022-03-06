@@ -18,6 +18,7 @@ html {
 body {
   min-height: 100vh;
   font-family: 'Roboto', sans-serif;
+  font-weight: 300;
   display: grid;
   grid-template-rows: 60px 1fr;
   grid-template-columns: 1fr 4fr;
@@ -25,6 +26,8 @@ body {
     "header header"
     "sidebar main-content"
 }
+
+/* Header */
 
 .header {
   grid-area: header;
@@ -51,10 +54,101 @@ body {
   font-size: 30px;
 }
 
+/* Sidebar */
+
 .sidebar {
   grid-area: sidebar;
+  padding: 30px;
+}
+
+.add-book-container {
+  display: grid;
+  gap: 40px;
+}
+
+.input {
+  display: grid;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.input input {
+  font-family: inherit;
+  font-size: 90%;
+  font-weight: 300;
+  padding: 5px;
+  border: 1px solid #c8c8c8;
+  border-radius: 5px;
+}
+
+.input input:focus {
+  outline: 2px solid var(--turqoise);
+}
+
+.status-container {
+  font-size: 18px;
+  font-weight: 400;
+  display: flex;
+  gap: 8px;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.15em;
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--turqoise);
+  background-color: CanvasText;
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+input[type="checkbox"]:focus {
+  outline: 2px solid var(--turqoise);
+  outline-offset: max(2px, 0.15em);
+}
+
+.add-book-container button {
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 24px;
+  padding: 15px 30px;
+  align-self: start;
+  background-color: var(--turqoise);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+.add-book-container button:focus-visible {
+  outline: 2px solid black;
+}
+
+.add-book-container button:hover {
+  filter: brightness(0.9);
 }
  
+/* Main Content */
 .main-content {
   grid-area: main-content;
 }
