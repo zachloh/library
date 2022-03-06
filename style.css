@@ -11,11 +11,15 @@ html {
   box-sizing: inherit;
 }
 
+:root {
+  --turqoise: #4bc1d2;
+}
+
 body {
   min-height: 100vh;
   font-family: 'Roboto', sans-serif;
   display: grid;
-  grid-template-rows: 50px 1fr;
+  grid-template-rows: 60px 1fr;
   grid-template-columns: 1fr 4fr;
   grid-template-areas: 
     "header header"
@@ -24,6 +28,27 @@ body {
 
 .header {
   grid-area: header;
+  background-color: var(--turqoise);
+  display: grid;
+  align-items: center;
+  padding-left: 50px;
+}
+
+.logo {
+  display: flex;
+  gap: 10px;
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
+}
+
+.logo p {
+  display: grid;
+  align-items: center;
+  color: #fff;
+  font-size: 30px;
 }
 
 .sidebar {
