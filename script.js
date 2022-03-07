@@ -1,6 +1,3 @@
-// Add a functionality to remove each book from the library
-// Add a button to toggle read status
-
 const form = document.querySelector('form');
 const addBookButton = document.querySelector('#add-book-button');
 const titleInput = document.querySelector('#title');
@@ -24,10 +21,6 @@ form.addEventListener('submit', e => {
     appendToTable(book, myLibrary.length - 1);
     clearForm();
   }
-  // myLibrary.push(book);
-  // updateLocalStorage(myLibrary);
-  // appendToTable(book, myLibrary.length - 1);
-  // clearForm();
 });
 
 tableBody.addEventListener('click', e => {
