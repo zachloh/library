@@ -20,6 +20,7 @@ form.addEventListener('submit', e => {
   myLibrary.push(book);
   updateLocalStorage(myLibrary);
   appendToTable(book, myLibrary.length - 1);
+  clearForm();
 });
 
 tableBody.addEventListener('click', e => {
@@ -27,6 +28,11 @@ tableBody.addEventListener('click', e => {
     const readStatus = toggleReadStatus(e.target);
     const index = e.target.parentElement.parentElement.dataset.index;
     updateReadStatus(readStatus, index);
+  }
+
+  if (e.target.closest('.remove')) {
+    const removeButton = e.target.closest('.remove');
+    removeBook(removeButton);
   }
 });
 
@@ -51,10 +57,17 @@ function appendToTable(bookObject, index) {
     if (i === 1) newCell.textContent = bookObject.author;
     if (i === 2) newCell.textContent = bookObject.pages;
     if (i === 3) addReadStatus(bookObject.readStatus, newCell);
-    if (i === 4) newCell.textContent = 'Delete';
+    if (i === 4) addRemoveButton(newCell);
     newRow.appendChild(newCell);
     tableBody.appendChild(newRow);
   }
+}
+
+function clearForm() {
+  titleInput.value = '';
+  authorInput.value = '';
+  pagesInput.value = '';
+  readStatusCheckbox.checked = false;
 }
 
 function addReadStatus(checked, tdElement) {
@@ -68,6 +81,16 @@ function addReadStatus(checked, tdElement) {
     readButton.textContent = 'NOT READ';
   }
   tdElement.appendChild(readButton);
+}
+
+function addRemoveButton(tdElement) {
+  const removeButton = document.createElement('button');
+  const removeIcon = document.createElement('img');
+  removeButton.classList.add('remove');
+  removeIcon.setAttribute('src', './assets/remove.svg');
+  removeIcon.setAttribute('alt', 'remove icon');
+  removeButton.appendChild(removeIcon);
+  tdElement.appendChild(removeButton);
 }
 
 function Book(title, author, pages, readStatus) {
@@ -94,4 +117,18 @@ function toggleReadStatus(readStatusButton) {
 function updateReadStatus(readStatus, index) {
   myLibrary[index].readStatus = readStatus;
   updateLocalStorage(myLibrary);
+}
+
+function removeBook(removeButton) {
+  const index = removeButton.parentElement.parentElement.dataset.index;
+  myLibrary.splice(index, 1);
+  updateLocalStorage(myLibrary);
+  clearTable();
+  initializeTable(myLibrary);
+}
+
+function clearTable() {
+  while (tableBody.firstChild) {
+    tableBody.removeChild(tableBody.firstChild);
+  }
 }

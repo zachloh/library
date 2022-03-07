@@ -185,6 +185,10 @@ th, td {
   border-bottom: 1px solid #d7d7d7;
 }
 
+td {
+  font-weight: 400;
+}
+
 thead th:nth-child(5) {
   width: 10%;
 }
@@ -208,4 +212,24 @@ thead th:nth-child(5) {
 .read {
   color: #2e8540;
   border: 1px solid #2e8540;
+}
+
+.remove {
+  background-color: #fff;
+  border: none;
+}
+
+.remove img {
+  height: auto;
+  width: 30px;
+  transition: 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.remove img:hover {
+  transform: scale(1.05);
+}
+
+.remove img:active {
+  transform: scale(1.1);
 }
