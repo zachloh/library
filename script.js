@@ -8,6 +8,7 @@ const authorInput = document.querySelector('#author');
 const pagesInput = document.querySelector('#pages');
 const readStatusCheckbox = document.querySelector('#read-status');
 const tableBody = document.querySelector('tbody');
+const message = document.querySelector('.add-book-container p');
 
 let myLibrary;
 
@@ -17,10 +18,16 @@ initializeTable(myLibrary);
 form.addEventListener('submit', e => {
   e.preventDefault();
   const book = createBookObject(titleInput.value, authorInput.value, pagesInput.value, readStatusCheckbox.checked);
-  myLibrary.push(book);
-  updateLocalStorage(myLibrary);
-  appendToTable(book, myLibrary.length - 1);
-  clearForm();
+  if (isValid(book)) {
+    myLibrary.push(book);
+    updateLocalStorage(myLibrary);
+    appendToTable(book, myLibrary.length - 1);
+    clearForm();
+  }
+  // myLibrary.push(book);
+  // updateLocalStorage(myLibrary);
+  // appendToTable(book, myLibrary.length - 1);
+  // clearForm();
 });
 
 tableBody.addEventListener('click', e => {
@@ -63,11 +70,22 @@ function appendToTable(bookObject, index) {
   }
 }
 
+function isValid(bookToCheck) {
+  for (const book of myLibrary) {
+    if (book.title === bookToCheck.title && book.author === bookToCheck.author && book.pages === bookToCheck.pages) {
+      message.textContent = '*This book already exists';
+      return false;
+    }
+  }
+  return true;
+}
+
 function clearForm() {
   titleInput.value = '';
   authorInput.value = '';
   pagesInput.value = '';
   readStatusCheckbox.checked = false;
+  message.textContent = '';
 }
 
 function addReadStatus(checked, tdElement) {

@@ -154,6 +154,12 @@ input[type="checkbox"]:focus {
   filter: brightness(0.9);
   cursor: pointer;
 }
+
+.add-book-container p {
+  color: #e31c3d;
+  font-weight: 400;
+  font-size: 18px;
+}
  
 /* Main Content */
 .main-content {
