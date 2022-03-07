@@ -1,8 +1,3 @@
-// Create an array to store all book objects, myLibrary
-// Prompt user for input
-// Store user input as an object (use constructor function to create new instance)
-// Create a function that adds the object to the array
-// Display the books as a table
 // Add a functionality to remove each book from the library
 // Add a button to toggle read status
 
@@ -22,8 +17,17 @@ initializeTable(myLibrary);
 form.addEventListener('submit', e => {
   e.preventDefault();
   const book = createBookObject(titleInput.value, authorInput.value, pagesInput.value, readStatusCheckbox.checked);
-  addToLocalStorage(book);
-  appendToTable(book);
+  myLibrary.push(book);
+  updateLocalStorage(myLibrary);
+  appendToTable(book, myLibrary.length - 1);
+});
+
+tableBody.addEventListener('click', e => {
+  if (e.target.classList.contains('read-status')) {
+    const readStatus = toggleReadStatus(e.target);
+    const index = e.target.parentElement.parentElement.dataset.index;
+    updateReadStatus(readStatus, index);
+  }
 });
 
 function updateBookArray() {
@@ -33,21 +37,37 @@ function updateBookArray() {
 }
 
 function initializeTable(bookArray) {
-  bookArray.forEach(book => appendToTable(book));
+  for (let i = 0; i < bookArray.length; i++) {
+    appendToTable(bookArray[i], i);
+  }
 }
 
-function appendToTable(bookObject) {
+function appendToTable(bookObject, index) {
   const newRow = document.createElement('tr');
+  newRow.dataset.index = index;
   for (let i = 0; i < 5; i++) {
     const newCell = document.createElement('td');
     if (i === 0) newCell.textContent = bookObject.title;
     if (i === 1) newCell.textContent = bookObject.author;
     if (i === 2) newCell.textContent = bookObject.pages;
-    if (i === 3) newCell.textContent = bookObject.readStatus ? 'read' : 'not read';
+    if (i === 3) addReadStatus(bookObject.readStatus, newCell);
     if (i === 4) newCell.textContent = 'Delete';
     newRow.appendChild(newCell);
     tableBody.appendChild(newRow);
   }
+}
+
+function addReadStatus(checked, tdElement) {
+  const readButton = document.createElement('button');
+  readButton.classList.add('read-status');
+  if (checked) {
+    readButton.classList.add('read');
+    readButton.textContent = 'READ';
+  } else {
+    readButton.classList.remove('read');
+    readButton.textContent = 'NOT READ';
+  }
+  tdElement.appendChild(readButton);
 }
 
 function Book(title, author, pages, readStatus) {
@@ -61,7 +81,17 @@ function createBookObject(title, author, pages, checked) {
   return new Book(title, author, pages, checked);
 }
 
-function addToLocalStorage(bookObject) {
-  myLibrary.push(bookObject);
-  localStorage.setItem('books', JSON.stringify(myLibrary));
+function updateLocalStorage(bookArray) {
+  localStorage.setItem('books', JSON.stringify(bookArray));
+}
+
+function toggleReadStatus(readStatusButton) {
+  readStatusButton.classList.toggle('read');
+  readStatusButton.textContent = (readStatusButton.classList.contains('read')) ? 'READ' : 'NOT READ';
+  return readStatusButton.classList.contains('read');
+}
+
+function updateReadStatus(readStatus, index) {
+  myLibrary[index].readStatus = readStatus;
+  updateLocalStorage(myLibrary);
 }

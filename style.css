@@ -188,3 +188,24 @@ th, td {
 thead th:nth-child(5) {
   width: 10%;
 }
+
+.read-status {
+  background-color: #fff;
+  padding: 10px 30px;
+  font-family: inherit;
+  font-size: 100%;
+  border-radius: 5px;
+  color: #e31c3d;
+  border: 1px solid #e31c3d;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.read-status:hover {
+  transform: scale(1.05);
+}
+
+.read {
+  color: #2e8540;
+  border: 1px solid #2e8540;
+}
