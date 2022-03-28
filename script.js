@@ -7,6 +7,15 @@ const readStatusCheckbox = document.querySelector('#read-status');
 const tableBody = document.querySelector('tbody');
 const message = document.querySelector('.add-book-container p');
 
+class Book {
+  constructor(title, author, pages, readStatus) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.readStatus = readStatus;
+  }
+}
+
 let myLibrary;
 
 updateBookArray();
@@ -102,13 +111,6 @@ function addRemoveButton(tdElement) {
   removeIcon.setAttribute('alt', 'remove icon');
   removeButton.appendChild(removeIcon);
   tdElement.appendChild(removeButton);
-}
-
-function Book(title, author, pages, readStatus) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.readStatus = readStatus;
 }
 
 function createBookObject(title, author, pages, checked) {
